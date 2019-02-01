@@ -70,7 +70,7 @@ namespace WeApi.Controllers
                 "`fecha_de_registro`," +
                 "`fecha_de_modificacion`) " +
             "VALUES " +
-            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}); "
+            "('{0}', STR_TO_DATE('{1}', '%Y/%m/%d'), '{2}', '{3}', '{4}', '{5}', '{6}', {7}, {8}); "
             , json["nombre"]
             , json["fecha_de_nacimiento"]
             , json["genero"]
@@ -115,7 +115,7 @@ namespace WeApi.Controllers
             string update_query = string.Format("UPDATE `lu_mascotas` " +
            "set " +
            "nombre='{0}' " +
-           ",fecha_de_nacimiento='{1}'" +
+           ",fecha_de_nacimiento=STR_TO_DATE('{0}', '%Y/%m/%d')" +
            ",genero='{2}' " +
            ",id_raza='{3}' " +
            ",id_cliente='{4}' " +
