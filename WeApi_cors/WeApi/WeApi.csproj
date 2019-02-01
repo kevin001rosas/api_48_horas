@@ -179,12 +179,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ciudadesController.cs" />
     <Compile Include="Controllers\clientesController.cs" />
     <Compile Include="Controllers\mascotasController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\razasController.cs" />
     <Compile Include="Controllers\tiposdemascotaController.cs" />
+    <Compile Include="Controllers\tiposdeusuarioController.cs" />
     <Compile Include="Controllers\usuariosController.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Global.asax.cs">

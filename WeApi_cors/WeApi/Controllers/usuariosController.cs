@@ -69,6 +69,7 @@ namespace WeApi.Controllers
                 "`fecha_de_registro`," +
                 "`fecha_de_modificacion`) " +
             "VALUES " +
+            //Verifica las funciones now() (Parametros 17 y 18), envía un post desde postman llenando estos datos y pon un punto de ruptura aquí para que veas el query. Copia y pega el query en Workbench para debuggearlo. 
             "('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', STR_TO_DATE('{9}', '%Y-%m-%d'), '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}'); "
                 , json["nombres"]
                 , json["apellido_paterno"]
