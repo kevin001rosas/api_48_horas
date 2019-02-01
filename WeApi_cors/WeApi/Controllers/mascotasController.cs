@@ -60,11 +60,26 @@ namespace WeApi.Controllers
 
             //Actualizamos los datos con un update query. 
             string insert_query = string.Format("INSERT INTO `lu_mascotas` " +
-            "(`nombre`, `id_tipo_de_mascota`) " +
+            "(`nombre`," +
+                "`fecha_de_nacimiento`," +
+                "`genero`," +
+                "`id_raza`," +
+                "`id_cliente`," +
+                "`estado`," +
+                "`foto_url`," +
+                "`fecha_de_registro`," +
+                "`fecha_de_modificacion`) " +
             "VALUES " +
-            "('{0}', '{1}'); "
+            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}); "
             , json["nombre"]
-            , json["id_tipo_de_raza"]);
+            , json["fecha_de_nacimiento"]
+            , json["genero"]
+            , json["id_raza"]
+            , json["id_cliente"]
+            , json["estado"]
+            , json["foto_url"]
+            , "now()"
+            , "now()");
             //, id);
 
             //En caso de error, devolverá incorrecto
@@ -98,11 +113,26 @@ namespace WeApi.Controllers
 
             //Actualizamos los datos con un update query. 
             string update_query = string.Format("UPDATE `lu_mascotas` " +
-            "set " +
-            "nombre='{0}' " +
-            "where id='{1}'"
-            , json["nombre"]
-            , id);
+           "set " +
+           "nombre='{0}' " +
+           ",fecha_de_nacimiento='{1}'" +
+           ",genero='{2}' " +
+           ",id_raza='{3}' " +
+           ",id_cliente='{4}' " +
+           ",foto_url='{5}' " +
+           ",fecha_de_modificacion=now() " +
+           "where id='{6}'"
+           , json["nombre"]
+           , json["fecha_de_nacimiento"]
+           , json["genero"]
+           , json["id_raza"]
+           , json["id_cliente"]
+           , json["foto_url"]
+           , id);
+
+
+
+
 
             //Contestamos con el id del nuevo registro.
             if (Database.runQuery(update_query))

@@ -9,32 +9,32 @@ using System.Web.Http;
 
 namespace WeApi.Controllers
 {
-    public class clientesController : ApiController
+    public class usuariosController : ApiController
     {
-        // GET api/clientes
+        // GET api/usuarios
         public IHttpActionResult Get()
         {
             if (!utilidades.validar_token(Request))
                 return Json("incorrecto");
 
-            string query = "SELECT * from lu_clientes where estado=1;";
+            string query = "SELECT * from lu_usuarios where estado=1;";
             DataTable tabla = Database.runSelectQuery(query);
             return Json(utilidades.convertDataTableToJson(tabla));
         }
 
-        // GET api/clientes/5
+        // GET api/usuarios/5
         public IHttpActionResult Get(int id)
         {
             if (!utilidades.validar_token(Request))
                 return Json("incorrecto");
 
-            string query = string.Format("SELECT * from lu_clientes where id='{0}'", id);
+            string query = string.Format("SELECT * from lu_usuarios where id='{0}'", id);
             DataTable tabla = Database.runSelectQuery(query);
             return Json(utilidades.convertDataTableToJson(tabla));
         }
 
 
-        // POST api/clientes
+        // POST api/usuarios
         public IHttpActionResult Post([FromBody]Object value)
         {
             //Generamos el Datatable para devolver el resultado. 
@@ -49,7 +49,7 @@ namespace WeApi.Controllers
                 return Json("incorrecto");
 
             //Actualizamos los datos con un update query. 
-            string insert_query = string.Format("INSERT INTO `lu_clientes` " +
+            string insert_query = string.Format("INSERT INTO `lu_usuarios` " +
             "(`nombres`," +
                 "`apellido_paterno`," +
                 "`apellido_materno`," +
@@ -63,37 +63,35 @@ namespace WeApi.Controllers
                 "`email`," +
                 "`estado`," +
                 "`id_tipo_de_usuario`," +
-                "`id_registrado_por`," +
                 "`foto_url`," +
-                "`estado_cliente`," +
+                "`establecimiento`," +
                 "`fecha_de_registro`," +
-                "`fecha_de_modificacion`,) " +
+                "`fecha_de_modificacion`) " +
             "VALUES " +
-            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}); "
-            , json["nombres"]
-            , json["apellido_paterno"]
-            , json["apellido_materno"]
-            , json["telefono_local"]
-            , json["telefono_celular"]
-            , json["calle"]
-            , json["numero"]
-            , json["delegacion"]
-            , json["fecha_de_nacimiento"]
-            , json["id_ciudad"]
-            , json["email"]
-            , json["estado"]
-            , json["id_tipo_de_usuario"]
-            , json["id_registrado_por"]
-            , json["foto_url"]
-            , json["estado_cliente"]
-            , "now()"
-            , "now()");
+            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}); "
+                , json["nombres"]
+                , json["apellido_paterno"]
+                , json["apellido_materno"]
+                , json["telefono_local"]
+                , json["telefono_celular"]
+                , json["calle"]
+                , json["numero"]
+                , json["delegacion"]
+                , json["fecha_de_nacimiento"]
+                , json["id_ciudad"]
+                , json["email"]
+                , json["estado"]
+                , json["id_tipo_de_usuario"]
+                , json["foto_url"]
+                , json["establecimiento"]
+                , "now()"
+                , "now()");
             //, id);
 
             //En caso de error, devolverá incorrecto
             tabla_resultado.Rows[0]["id"] = Database.runInsert(insert_query).ToString();
             if (tabla_resultado.Rows[0]["id"] == "-1")
-                return Json("incorrecto");
+                return Json("incorrecto"); 
 
             //Devolcemos la información de la tabla. 
             return Json(utilidades.convertDataTableToJson(tabla_resultado));
@@ -110,7 +108,7 @@ namespace WeApi.Controllers
             return true;
         }
 
-        // PUT api/clientes/5
+        // PUT api/usuarios/5
         public IHttpActionResult Put(int id, [FromBody]Object value)
         {
             JObject json = JObject.Parse(value.ToString());
@@ -119,7 +117,7 @@ namespace WeApi.Controllers
                 return Json("incorrecto");
 
             //Actualizamos los datos con un update query. 
-            string update_query = string.Format("UPDATE `lu_clientes` " +
+            string update_query = string.Format("UPDATE `lu_usuarios` " +
             "set " +
             "nombres='{0}' " +
             ",apellido_paterno='{1}'" +
@@ -132,10 +130,10 @@ namespace WeApi.Controllers
             ",fecha_de_nacimiento='{8}' " +
             ",id_ciudad='{9}' " +
             ",email='{10}' " +
-            ",id_tipo_de_usuario='{11}' " +
-            ",id_registrado_por='{12}' " +
+            ",estado='{11}' " +
+            ",id_tipo_de_usuario='{12}' " +
             ",foto_url='{13}' " +
-            ",estado_cliente='{14}' " +
+            ",establecimiento='{14}' " +
             ",fecha_de_modificacion=now() " +
             "where id='{15}'"
             , json["nombres"]
@@ -149,11 +147,16 @@ namespace WeApi.Controllers
             , json["fecha_de_nacimiento"]
             , json["id_ciudad"]
             , json["email"]
+            , json["estado"]
             , json["id_tipo_de_usuario"]
-            , json["id_registrado_por"]
             , json["foto_url"]
-            , json["estado_cliente"]
+            , json["establecimiento"]
             , id);
+
+
+
+
+
 
             //Contestamos con el id del nuevo registro.
             if (Database.runQuery(update_query))
@@ -162,14 +165,14 @@ namespace WeApi.Controllers
                 return Json("incorrecto");
         }
 
-        // DELETE api/clientes/5
+        // DELETE api/usuarios/5
         public IHttpActionResult Delete(int id)
         {
             if (!utilidades.validar_token(Request))
-                return Json("incorrecto");
+                return Json("incorrecto"); 
 
             //Actualizamos los datos con un update query. 
-            string update_query = string.Format("UPDATE `lu_clientes` " +
+            string update_query = string.Format("UPDATE `lu_usuarios` " +
             "set " +
             "estado=0 " +
             ",fecha_de_modificacion=now() " +
