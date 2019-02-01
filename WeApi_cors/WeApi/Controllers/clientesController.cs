@@ -58,6 +58,7 @@ namespace WeApi.Controllers
                 "`calle`," +
                 "`numero`," +
                 "`delegacion`," +
+                "`colonia`," +
                 "`fecha_de_nacimiento`," +
                 "`id_ciudad`," +
                 "`email`," +
@@ -69,7 +70,7 @@ namespace WeApi.Controllers
                 "`fecha_de_registro`," +
                 "`fecha_de_modificacion`,) " +
             "VALUES " +
-            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}); "
+            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}); "
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
@@ -78,6 +79,7 @@ namespace WeApi.Controllers
             , json["calle"]
             , json["numero"]
             , json["delegacion"]
+            , json["colonia"]
             , json["fecha_de_nacimiento"]
             , json["id_ciudad"]
             , json["email"]
@@ -129,15 +131,16 @@ namespace WeApi.Controllers
             ",calle='{5}' " +
             ",numero='{6}' " +
             ",delegacion='{7}' " +
-            ",fecha_de_nacimiento='{8}' " +
-            ",id_ciudad='{9}' " +
-            ",email='{10}' " +
-            ",id_tipo_de_usuario='{11}' " +
-            ",id_registrado_por='{12}' " +
-            ",foto_url='{13}' " +
-            ",estado_cliente='{14}' " +
+            ",colonia='{8}' " +
+            ",fecha_de_nacimiento='{9}' " +
+            ",id_ciudad='{10}' " +
+            ",email='{11}' " +
+            ",id_tipo_de_usuario='{12}' " +
+            ",id_registrado_por='{13}' " +
+            ",foto_url='{14}' " +
+            ",estado_cliente='{15}' " +
             ",fecha_de_modificacion=now() " +
-            "where id='{15}'"
+            "where id='{16}'"
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
@@ -146,6 +149,7 @@ namespace WeApi.Controllers
             , json["calle"]
             , json["numero"]
             , json["delegacion"]
+            , json["colonia"]
             , json["fecha_de_nacimiento"]
             , json["id_ciudad"]
             , json["email"]

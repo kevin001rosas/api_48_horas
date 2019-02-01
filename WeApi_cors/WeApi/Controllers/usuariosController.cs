@@ -17,7 +17,7 @@ namespace WeApi.Controllers
             if (!utilidades.validar_token(Request))
                 return Json("incorrecto");
 
-            string query = "SELECT * from lu_usuarios where estado=1;";
+            string query = "";
             DataTable tabla = Database.runSelectQuery(query);
             return Json(utilidades.convertDataTableToJson(tabla));
         }
@@ -58,6 +58,7 @@ namespace WeApi.Controllers
                 "`calle`," +
                 "`numero`," +
                 "`delegacion`," +
+                "`colonia`," +
                 "`fecha_de_nacimiento`," +
                 "`id_ciudad`," +
                 "`email`," +
@@ -68,7 +69,7 @@ namespace WeApi.Controllers
                 "`fecha_de_registro`," +
                 "`fecha_de_modificacion`) " +
             "VALUES " +
-            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}); "
+            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}); "
                 , json["nombres"]
                 , json["apellido_paterno"]
                 , json["apellido_materno"]
@@ -77,6 +78,7 @@ namespace WeApi.Controllers
                 , json["calle"]
                 , json["numero"]
                 , json["delegacion"]
+                , json["colonia"]
                 , json["fecha_de_nacimiento"]
                 , json["id_ciudad"]
                 , json["email"]
@@ -127,15 +129,16 @@ namespace WeApi.Controllers
             ",calle='{5}' " +
             ",numero='{6}' " +
             ",delegacion='{7}' " +
-            ",fecha_de_nacimiento='{8}' " +
-            ",id_ciudad='{9}' " +
-            ",email='{10}' " +
-            ",estado='{11}' " +
-            ",id_tipo_de_usuario='{12}' " +
-            ",foto_url='{13}' " +
-            ",establecimiento='{14}' " +
+            ",colonia='{8}' " +
+            ",fecha_de_nacimiento='{9}' " +
+            ",id_ciudad='{10}' " +
+            ",email='{11}' " +
+            ",estado='{12}' " +
+            ",id_tipo_de_usuario='{13}' " +
+            ",foto_url='{14}' " +
+            ",establecimiento='{15}' " +
             ",fecha_de_modificacion=now() " +
-            "where id='{15}'"
+            "where id='{16}'"
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
@@ -144,6 +147,7 @@ namespace WeApi.Controllers
             , json["calle"]
             , json["numero"]
             , json["delegacion"]
+            , json["colonia"]
             , json["fecha_de_nacimiento"]
             , json["id_ciudad"]
             , json["email"]
