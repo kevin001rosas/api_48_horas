@@ -71,13 +71,13 @@ namespace WeApi.Controllers
                 "`fecha_de_registro`," +
                 "`fecha_de_modificacion`) " +
             "VALUES " +
-            "('{0}', STR_TO_DATE('{1}', '%Y-%m-%d'), '{2}', '{3}', '{4}', '{5}', '{6}', {7}, {8}); "
+            "('{0}', STR_TO_DATE('{1}', '%Y-%m-%d'), '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}'); "
             , json["nombre"]
             , json["fecha_de_nacimiento"]
             , json["genero"]
             , json["id_raza"]
             , json["id_cliente"]
-            , "1"
+            , json["estado"]
             , json["foto_url"]
             , "now()"
             , "now()");

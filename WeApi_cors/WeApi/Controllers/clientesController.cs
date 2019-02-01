@@ -70,7 +70,7 @@ namespace WeApi.Controllers
                 "`fecha_de_registro`," +
                 "`fecha_de_modificacion`,) " +
             "VALUES " +
-            "('{0}', '{1}', {2}, {3}, {4}, {5}. {6}. {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}); "
+            "('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', STR_TO_DATE('{9}', '%Y-%m-%d'), '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}'); "
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
@@ -132,7 +132,7 @@ namespace WeApi.Controllers
             ",numero='{6}' " +
             ",delegacion='{7}' " +
             ",colonia='{8}' " +
-            ",fecha_de_nacimiento='{9}' " +
+            ",fecha_de_nacimiento=STR_TO_DATE('{9}', '%Y-%m-%d') " +
             ",id_ciudad='{10}' " +
             ",email='{11}' " +
             ",id_tipo_de_usuario='{12}' " +
