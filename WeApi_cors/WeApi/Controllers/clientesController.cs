@@ -94,7 +94,7 @@ namespace WeApi.Controllers
 
             //En caso de error, devolverá incorrecto
             tabla_resultado.Rows[0]["id"] = Database.runInsert(insert_query).ToString();
-            if (tabla_resultado.Rows[0]["id"] == "-1")
+            if (tabla_resultado.Rows[0]["id"].ToString() == "-1")
                 return Json("incorrecto");
 
             //Devolcemos la información de la tabla. 

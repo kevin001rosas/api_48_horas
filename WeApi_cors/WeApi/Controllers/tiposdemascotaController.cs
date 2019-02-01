@@ -87,7 +87,7 @@ namespace WeApi.Controllers
 
             //Contestamos con el id del nuevo registro. 
             tabla_resultado.Rows[0]["id"] = Database.runInsert(insert_query).ToString();
-            if (tabla_resultado.Rows[0]["id"] == "-1")
+            if (tabla_resultado.Rows[0]["id"].ToString()== "-1")
                 return Json("incorrecto"); 
 
             //Devolvera en el resultado -1 en caso de una inserción errónea. 

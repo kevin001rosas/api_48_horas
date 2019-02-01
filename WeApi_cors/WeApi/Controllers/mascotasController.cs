@@ -30,7 +30,8 @@ namespace WeApi.Controllers
 
             string query = string.Format("SELECT " + 
                 "a.* " +
-                ", c.id as id_tipo_de_mascota " + 
+                ", c.id as id_tipo_de_mascota " +
+                ", d.email as email " + 
                 ", concat(d.nombres, ' ' , d.apellido_paterno, ' ', d.apellido_materno) as cliente " + 
                 "from lu_mascotas a" + 
                 " LEFT JOIN lu_razas b on a.id_raza=b.id " +
@@ -76,7 +77,7 @@ namespace WeApi.Controllers
             , json["genero"]
             , json["id_raza"]
             , json["id_cliente"]
-            , json["estado"]
+            , "1"
             , json["foto_url"]
             , "now()"
             , "now()");
@@ -84,7 +85,7 @@ namespace WeApi.Controllers
 
             //En caso de error, devolverá incorrecto
             tabla_resultado.Rows[0]["id"] = Database.runInsert(insert_query).ToString();
-            if (tabla_resultado.Rows[0]["id"] == "-1")
+            if (tabla_resultado.Rows[0]["id"].ToString() == "-1")
                 return Json("incorrecto");
 
             //Devolcemos la información de la tabla. 
