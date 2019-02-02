@@ -103,8 +103,13 @@ namespace WeApi.Controllers
             if (!utilidades.validar_token(Request))
                 return false;
 
+<<<<<<< HEAD
             if (json["nombres"].ToString().Trim() == "")
                 return false;
+=======
+            //if (json["nombre"].ToString().Trim() == "")
+            //    return false;
+>>>>>>> d3394e6a994b3d62d7e58b908f632c6d34cc9caf
 
             return true;
         }
