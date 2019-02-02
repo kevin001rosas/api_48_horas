@@ -115,7 +115,7 @@ namespace WeApi.Controllers
             int pagina = int.Parse(string_pagina);
 
             IEnumerable<string> headerValues_nombre = Request.Headers.GetValues("nombre");
-            string nombre = headerValues.FirstOrDefault().ToString();            
+            string nombre = headerValues_nombre.FirstOrDefault().ToString();            
 
 
             //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
