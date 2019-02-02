@@ -54,7 +54,7 @@ namespace WeApi.Controllers
             "VALUES " +
             "('{0}', '{1}', {2}, {3}); "
             , json["nombre"]
-            , json["id_tipo_de_raza"]
+            , json["id_tipo_de_mascota"]
             , "now()"
             , "now()");
             //, id);

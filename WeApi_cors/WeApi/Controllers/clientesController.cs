@@ -62,16 +62,14 @@ namespace WeApi.Controllers
                 "`fecha_de_nacimiento`," +
                 "`id_ciudad`," +
                 "`email`," +
-                "`estado`," +
                 "`id_tipo_de_usuario`," +
                 "`id_registrado_por`," +
                 "`foto_url`," +
-                "`estado_cliente`," +
                 "`fecha_de_registro`," +
-                "`fecha_de_modificacion`,) " +
+                "`fecha_de_modificacion`) " +
             "VALUES " +
             //Verifica las funciones now() (Parametros 17 y 18), envía un post desde postman llenando estos datos y pon un punto de ruptura aquí para que veas el query. Copia y pega el query en Workbench para debuggearlo. 
-            "('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', STR_TO_DATE('{9}', '%Y-%m-%d'), '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}'); "
+            "('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', STR_TO_DATE('{9}', '%Y-%m-%d'), '{10}', '{11}', '{12}', '{13}', '{14}', {15}, {16}); "
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
@@ -84,11 +82,9 @@ namespace WeApi.Controllers
             , json["fecha_de_nacimiento"]
             , json["id_ciudad"]
             , json["email"]
-            , json["estado"]
             , json["id_tipo_de_usuario"]
             , json["id_registrado_por"]
             , json["foto_url"]
-            , json["estado_cliente"]
             , "now()"
             , "now()");
             //, id);
@@ -107,7 +103,7 @@ namespace WeApi.Controllers
             if (!utilidades.validar_token(Request))
                 return false;
 
-            if (json["nombre"].ToString().Trim() == "")
+            if (json["nombres"].ToString().Trim() == "")
                 return false;
 
             return true;
