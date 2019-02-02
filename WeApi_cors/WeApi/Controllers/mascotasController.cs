@@ -100,6 +100,58 @@ namespace WeApi.Controllers
 
         }
 
+        [Route("api/mascotas/getSearchByPage")]
+        public IHttpActionResult getSearchByPage()
+        {
+            //Recuerda poner siempre la función de validación de token. Ya entró; pero no le mande la página en el header. 
+            //Para eso utilizaremos POstman !! :D 
+            if (!utilidades.validar_token(Request))
+                return Json("incorrecto");
+
+            //ahora si debe traer la página...
+            //Aquí obtendré el valor de la página que me solicitam . 
+            IEnumerable<string> headerValues = Request.Headers.GetValues("pagina");
+            string string_pagina = headerValues.FirstOrDefault().ToString();
+            int pagina = int.Parse(string_pagina);
+
+            IEnumerable<string> headerValues_nombre = Request.Headers.GetValues("nombre");
+            string nombre = headerValues.FirstOrDefault().ToString();            
+
+
+            //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
+            //Recuerda siempre poner la condicio´n del estado. ¿Ok? 
+            string query = string.Format("select  " +
+            "a.id " +
+            ",a.nombre " +
+            ",a.genero " +
+            ",a.foto_url " +
+            ", c.nombre as tipo " +
+            ", DATE_FORMAT(a.fecha_de_nacimiento, '%d/%m/%Y') AS fecha_de_nacimiento " +
+            ", concat(d.nombres, ' ' , d.apellido_paterno,  ' ' ,d.apellido_materno) as cliente " +
+            "from lu_mascotas a  " +
+            "left join lu_razas b on a.id_raza=b.id  " +
+            "left join lu_tipos_de_mascota c on c.id=b.id_tipo_de_mascota " +
+            "left join lu_clientes d on d.id=a.id_cliente " +
+            "where a.estado=1 " +
+            "and a.nombre like '%{2}%' " + 
+            "order by a.fecha_de_modificacion desc limit {0} offset {1};  "
+                , utilidades.elementos_por_pagina
+                , ((pagina - 1) * (utilidades.elementos_por_pagina - 1))
+                , nombre);
+
+            //OBtenmeos el Datatable con la información 
+            DataTable tabla_resultado = Database.runSelectQuery(query);
+
+            //Viste como Debuguiee? Cuando te salga algun errror, copia y pega el query que pones aqupara correlo en el Workbench Y listo :D
+            //Convertimos a Json y regresamos los datos. 
+
+            return Json(utilidades.convertDataTableToJson(tabla_resultado));
+
+            //Ya terminamos... Ahora a probar. Pondré un punto de ruptura al inicio de la funciójn pra debuggear. 
+            //Te sugiero que hagas lo mismo para las funciones que hagas. Creo que es muy útil. 
+
+        }
+
 
 
         // POST api/mascotas
