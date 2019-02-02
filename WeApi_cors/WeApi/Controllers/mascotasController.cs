@@ -124,6 +124,7 @@ namespace WeApi.Controllers
             "a.id " +
             ",a.nombre " +
             ",a.genero " +
+            ",b.nombre as raza " +
             ",a.foto_url " +
             ", c.nombre as tipo " +
             ", DATE_FORMAT(a.fecha_de_nacimiento, '%d/%m/%Y') AS fecha_de_nacimiento " +
