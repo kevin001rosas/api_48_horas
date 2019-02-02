@@ -134,7 +134,6 @@ namespace WeApi.Controllers
             ",fecha_de_nacimiento=STR_TO_DATE('{9}', '%Y-%m-%d') " +
             ",id_ciudad='{10}' " +
             ",email='{11}' " +
-            ",estado='{12}' " +
             ",id_tipo_de_usuario='{13}' " +
             ",foto_url='{14}' " +
             ",establecimiento='{15}' " +
@@ -152,7 +151,6 @@ namespace WeApi.Controllers
             , json["fecha_de_nacimiento"]
             , json["id_ciudad"]
             , json["email"]
-            , json["estado"]
             , json["id_tipo_de_usuario"]
             , json["foto_url"]
             , json["establecimiento"]
