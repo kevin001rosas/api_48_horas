@@ -59,7 +59,7 @@ namespace WeApi.Controllers
         }
 
         //recuerda que en utilidades tendremos todas las funciones y variables que utilizaremos en el esistema. 
-        //Aquí pondemos las variables para controlar la paginación 
-        static public int elementos_por_pagina = 2; 
+        //Aquí pondemos las variables para controlar la paginación. Siempre hay que poner la cantidad deseada + 1 
+        static public int elementos_por_pagina = 6; 
     }
 }
