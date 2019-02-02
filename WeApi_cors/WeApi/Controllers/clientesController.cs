@@ -56,6 +56,7 @@ namespace WeApi.Controllers
                 "`telefono_local`," +
                 "`telefono_celular`," +
                 "`calle`," +
+                "`codigo_postal`," +
                 "`numero`," +
                 "`delegacion`," +
                 "`colonia`," +
@@ -69,13 +70,14 @@ namespace WeApi.Controllers
                 "`fecha_de_modificacion`) " +
             "VALUES " +
             //Verifica las funciones now() (Parametros 17 y 18), envía un post desde postman llenando estos datos y pon un punto de ruptura aquí para que veas el query. Copia y pega el query en Workbench para debuggearlo. 
-            "('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', STR_TO_DATE('{9}', '%Y-%m-%d'), '{10}', '{11}', '{12}', '{13}', '{14}', {15}, {16}); "
+            "('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}','{9}',  STR_TO_DATE('{10}', '%Y-%m-%d'), '{11}', '{12}', '{13}', '{14}', '{15}', {16}, {17}); "
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
             , json["telefono_local"]
             , json["telefono_celular"]
             , json["calle"]
+            , json["codigo_postal"]
             , json["numero"]
             , json["delegacion"]
             , json["colonia"]
@@ -126,24 +128,26 @@ namespace WeApi.Controllers
             ",telefono_local='{3}' " +
             ",telefono_celular='{4}' " +
             ",calle='{5}' " +
-            ",numero='{6}' " +
-            ",delegacion='{7}' " +
-            ",colonia='{8}' " +
-            ",fecha_de_nacimiento=STR_TO_DATE('{9}', '%Y-%m-%d') " +
-            ",id_ciudad='{10}' " +
-            ",email='{11}' " +
-            ",id_tipo_de_usuario='{12}' " +
-            ",id_registrado_por='{13}' " +
-            ",foto_url='{14}' " +
-            ",estado_cliente='{15}' " +
+            ",codigo_postal='{6}' " +
+            ",numero='{7}' " +
+            ",delegacion='{8}' " +
+            ",colonia='{9}' " +
+            ",fecha_de_nacimiento=STR_TO_DATE('{10}', '%Y-%m-%d') " +
+            ",id_ciudad='{11}' " +
+            ",email='{12}' " +
+            ",id_tipo_de_usuario='{13}' " +
+            ",id_registrado_por='{14}' " +
+            ",foto_url='{15}' " +
+            ",estado_cliente='{16}' " +
             ",fecha_de_modificacion=now() " +
-            "where id='{16}'"
+            "where id='{17}'"
             , json["nombres"]
             , json["apellido_paterno"]
             , json["apellido_materno"]
             , json["telefono_local"]
             , json["telefono_celular"]
             , json["calle"]
+            , json["codigo_postal"]
             , json["numero"]
             , json["delegacion"]
             , json["colonia"]

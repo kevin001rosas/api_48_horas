@@ -124,7 +124,6 @@ namespace WeApi.Controllers
             "a.id " +
             ",a.nombre " +
             ",a.genero " +
-            ",b.nombre as raza " +
             ",a.foto_url " +
             ", c.nombre as tipo " +
             ", DATE_FORMAT(a.fecha_de_nacimiento, '%d/%m/%Y') AS fecha_de_nacimiento " +
@@ -140,6 +139,8 @@ namespace WeApi.Controllers
                 , ((pagina - 1) * (utilidades.elementos_por_pagina - 1))
                 , nombre);
 
+
+
             //OBtenmeos el Datatable con la información 
             DataTable tabla_resultado = Database.runSelectQuery(query);
 
@@ -153,7 +154,40 @@ namespace WeApi.Controllers
 
         }
 
+        [Route("api/mascotas/getMascotasByCliente/{id}")]
+        public IHttpActionResult getMascotasByCliente(int id)
+        {
+            //Recuerda poner siempre la función de validación de token. Ya entró; pero no le mande la página en el header. 
+            //Para eso utilizaremos POstman !! :D 
+            if (!utilidades.validar_token(Request))
+                return Json("incorrecto");
 
+            //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
+            //Recuerda siempre poner la condicio´n del estado. ¿Ok? 
+            string query = string.Format("select  " +
+                "a.id " +
+                ", a.nombre " +
+                ", a.genero " +
+                ", b.nombre as raza " +
+                ", c.nombre as tipo " +
+                "from lu_mascotas a " +
+                "LEFT JOIN lu_razas b on a.id_raza=b.id " +
+                "LEFT JOIN lu_tipos_de_mascota c on c.id=b.id_tipo_de_mascota " +
+                "where a.id_cliente='{0}';  "
+                , id);
+
+            //OBtenmeos el Datatable con la información 
+            DataTable tabla_resultado = Database.runSelectQuery(query);
+
+            //Viste como Debuguiee? Cuando te salga algun errror, copia y pega el query que pones aqupara correlo en el Workbench Y listo :D
+            //Convertimos a Json y regresamos los datos. 
+
+            return Json(utilidades.convertDataTableToJson(tabla_resultado));
+
+            //Ya terminamos... Ahora a probar. Pondré un punto de ruptura al inicio de la funciójn pra debuggear. 
+            //Te sugiero que hagas lo mismo para las funciones que hagas. Creo que es muy útil. 
+
+        }
 
         // POST api/mascotas
         public IHttpActionResult Post([FromBody]Object value)
