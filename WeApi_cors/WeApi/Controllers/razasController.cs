@@ -138,15 +138,28 @@ namespace WeApi.Controllers
             //Aquí obtendré el valor de la página que me solicitam . 
             IEnumerable<string> headerValues = Request.Headers.GetValues("pagina");
             string string_pagina = headerValues.FirstOrDefault().ToString();
-            int pagina = int.Parse(string_pagina); 
+            int pagina = int.Parse(string_pagina);
+
+            IEnumerable<string> headerValues_nombre = Request.Headers.GetValues("nombre");
+            string nombre = headerValues_nombre.FirstOrDefault().ToString();
 
             //Finalmente utilizaré la variable para traer la página que me solicitan. 
 
             //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
             //Recuerda siempre poner la condicio´n del estado. ¿Ok? 
-            string query = string.Format("SELECT * FROM lu_razas where estado=1 limit {0} offset {1} ; "
-                , utilidades.elementos_por_pagina
-                , ((pagina-1)*utilidades.elementos_por_pagina));
+            string query = string.Format("select  " +
+                "a.id " +
+                ",a.nombre " +
+                ", b.nombre as tipo " +
+                "from lu_razas a  " +
+                "left join lu_tipos_de_mascota b on a.id=b.id " +
+                "where a.nombre like '%{2}%' " +
+                "order by a.fecha_de_modificacion desc limit {0} offset {1};  "
+                    , utilidades.elementos_por_pagina
+                    , ((pagina - 1) * (utilidades.elementos_por_pagina - 1))
+                    , nombre);
+
+
 
             //OBtenmeos el Datatable con la información 
             DataTable tabla_resultado = Database.runSelectQuery(query);

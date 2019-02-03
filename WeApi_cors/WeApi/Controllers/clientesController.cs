@@ -202,13 +202,34 @@ namespace WeApi.Controllers
             string string_pagina = headerValues.FirstOrDefault().ToString();
             int pagina = int.Parse(string_pagina);
 
+            IEnumerable<string> headerValues_nombre = Request.Headers.GetValues("nombre");
+            string nombre = headerValues_nombre.FirstOrDefault().ToString();
+
             //Finalmente utilizaré la variable para traer la página que me solicitan. 
 
             //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
             //Recuerda siempre poner la condicio´n del estado. ¿Ok? 
-            string query = string.Format("SELECT * FROM lu_clientes where estado=1 limit {0} offset {1} ; "
+            string query = string.Format("select  " +
+            "a.id " +
+            ",a.nombres " +
+            ",a.apellido_paterno " +
+            ",a.apellido_materno " +
+            ",a.telefono_local " +
+            ",a.telefono_celular " +
+            ",a.calle " +
+            ",a.numero" +
+            ",a.delegacion " +
+            ",a.colonia " +
+            ", DATE_FORMAT(a.fecha_de_nacimiento, '%d/%m/%Y') AS fecha_de_nacimiento " +
+            ",a.email " +
+            ", concat(a.nombres, ' ' , a.apellido_paterno,  ' ' ,a.apellido_materno) as usuario " +
+            "from lu_clientes a  " +
+            "where a.estado=1 " +
+            "and a.nombres like '%{2}%' " +
+            "order by a.fecha_de_modificacion desc limit {0} offset {1};  "
                 , utilidades.elementos_por_pagina
-                , ((pagina - 1) * utilidades.elementos_por_pagina));
+                , ((pagina - 1) * (utilidades.elementos_por_pagina - 1))
+                , nombre);
 
             //OBtenmeos el Datatable con la información 
             DataTable tabla_resultado = Database.runSelectQuery(query);
