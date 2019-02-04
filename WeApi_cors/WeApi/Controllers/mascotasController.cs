@@ -103,13 +103,11 @@ namespace WeApi.Controllers
         [Route("api/mascotas/getSearchByPage")]
         public IHttpActionResult getSearchByPage()
         {
-            //Recuerda poner siempre la función de validación de token. Ya entró; pero no le mande la página en el header. 
-            //Para eso utilizaremos POstman !! :D 
+
             if (!utilidades.validar_token(Request))
                 return Json("incorrecto");
 
-            //ahora si debe traer la página...
-            //Aquí obtendré el valor de la página que me solicitam . 
+
             IEnumerable<string> headerValues = Request.Headers.GetValues("pagina");
             string string_pagina = headerValues.FirstOrDefault().ToString();
             int pagina = int.Parse(string_pagina);
@@ -118,9 +116,7 @@ namespace WeApi.Controllers
             string nombre = headerValues_nombre.FirstOrDefault().ToString();            
 
 
-            //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
-            //Recuerda siempre poner la condicio´n del estado. ¿Ok? 
-            string query = string.Format("select  " +
+           string query = string.Format("select  " +
             "a.id " +
             ",a.nombre " +
             ",a.genero " +

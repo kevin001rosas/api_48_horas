@@ -127,15 +127,11 @@ namespace WeApi.Controllers
         //Acabo de crear la función. Falta poner la ruta...
         //Con esta línea se agrega la ruta.
         [Route("api/razas/getByPage")]
-        public IHttpActionResult getByPage()
+        public IHttpActionResult getSearchByPage()
         {
-            //Recuerda poner siempre la función de validación de token. Ya entró; pero no le mande la página en el header. 
-            //Para eso utilizaremos POstman !! :D 
             if (!utilidades.validar_token(Request))
                 return Json("incorrecto");
 
-            //ahora si debe traer la página...
-            //Aquí obtendré el valor de la página que me solicitam . 
             IEnumerable<string> headerValues = Request.Headers.GetValues("pagina");
             string string_pagina = headerValues.FirstOrDefault().ToString();
             int pagina = int.Parse(string_pagina);
@@ -143,10 +139,6 @@ namespace WeApi.Controllers
             IEnumerable<string> headerValues_nombre = Request.Headers.GetValues("nombre");
             string nombre = headerValues_nombre.FirstOrDefault().ToString();
 
-            //Finalmente utilizaré la variable para traer la página que me solicitan. 
-
-            //Utilizaré la variable estatica (global) de la clase de utilidades y el número de la página que me solicitan. 
-            //Recuerda siempre poner la condicio´n del estado. ¿Ok? 
             string query = string.Format("select  " +
                 "a.id " +
                 ",a.nombre " +

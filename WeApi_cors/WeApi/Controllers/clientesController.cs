@@ -189,7 +189,7 @@ namespace WeApi.Controllers
         }
 
         [Route("api/clientes/getByPage")]
-        public IHttpActionResult getByPage()
+        public IHttpActionResult getSearchByPage()
         {
             //Recuerda poner siempre la función de validación de token. Ya entró; pero no le mande la página en el header. 
             //Para eso utilizaremos POstman !! :D 
