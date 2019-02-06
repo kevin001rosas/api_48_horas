@@ -5,12 +5,17 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web.Http;
 
 namespace WeApi.Controllers
 {
     public class mascotasController : ApiController
     {
+        private static string enviar_correos;
+
+        public static object MessageBox { get; private set; }
+
         // GET api/mascotas
         public IHttpActionResult Get()
         {
@@ -299,6 +304,37 @@ namespace WeApi.Controllers
             else
                 return Json("incorrecto");
         }
+
+
+        [Route("api/mascotas/getEnviarCorreo")]
+        public IHttpActionResult getEnviarCorreo()
+        {
+            IEnumerable<string> headerValues = Request.Headers.GetValues("id");
+            string id_header = headerValues.FirstOrDefault().ToString();
+            int id = int.Parse(id_header);
+
+            IEnumerable<string> headerValues_nombre = Request.Headers.GetValues("email");
+            string email = headerValues_nombre.FirstOrDefault().ToString();
+
+            if (!utilidades.validar_token(Request))
+                return Json("incorrecto");
+
+            string query = string.Format("select  " +
+                "concat(a.nombre, ' ' , a.genero  ,' ' , b.nombre , ' ', c.nombre , ' ', DATE_FORMAT(a.fecha_de_nacimiento, '%d/%m/%Y') ) as informacion_de_mascota  " +
+                "from lu_mascotas a " +
+                "LEFT JOIN lu_razas b on a.id=b.id " +
+                "LEFT JOIN lu_tipos_de_mascota c on c.id=b.id " +
+                "where a.id='{0}';  "
+                , id);
+
+            DataTable tabla_resultado = Database.runSelectQuery(query);
+
+            utilidades.EnviarCorreo(tabla_resultado,email);
+
+
+        }
+
+
 
     }
 }
