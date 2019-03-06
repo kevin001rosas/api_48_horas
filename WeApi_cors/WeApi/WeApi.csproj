@@ -43,15 +43,37 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPdf, Version=4.4.9.15720, Culture=neutral, PublicKeyToken=94e1c31412563c75, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\IronPdf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -150,6 +172,11 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\api.xik.mx - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\apiroyal.xik.mx - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\apiRoyalCaninProduccion.xik.mx - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\royalapi.xik.mx - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\xik.mx - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\index.d.ts" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -176,19 +203,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CrossDomainHandler.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ciudadesController.cs" />
     <Compile Include="Controllers\clientesController.cs" />
+    <Compile Include="Controllers\descargasController.cs" />
+    <Compile Include="Controllers\distribuidoresController.cs" />
+    <Compile Include="Controllers\estadosdeclienteController.cs" />
+    <Compile Include="Controllers\estadosdekitController.cs" />
+    <Compile Include="Controllers\estadosdeusuarioController.cs" />
+    <Compile Include="Controllers\kitsController.cs" />
+    <Compile Include="Controllers\marcasController.cs" />
     <Compile Include="Controllers\mascotasController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
-    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\razasController.cs" />
+    <Compile Include="Controllers\tiposdekitController.cs" />
     <Compile Include="Controllers\tiposdemascotaController.cs" />
     <Compile Include="Controllers\tiposdeusuarioController.cs" />
     <Compile Include="Controllers\usuariosController.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Descarga.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

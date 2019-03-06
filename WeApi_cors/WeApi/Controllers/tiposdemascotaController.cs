@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WeApi.Controllers
-{
+{   
     public class tiposdemascotaController : ApiController
     {
-        // GET api/tiposdemascota
-        
+        // GET api/tiposdemascota        
         public IHttpActionResult Get()
         {
             if (!utilidades.validar_token(Request))
@@ -54,6 +54,7 @@ namespace WeApi.Controllers
             //Obtenemos los tipos de mascota. 
             string query = string.Format("SELECT a.nombre as nombre_tipo_de_mascota " +
                 ",b.nombre as raza  " +
+                ",b.talla as talla " +
                 ",b.id as id_raza  " +
                 "FROM lu_tipos_de_mascota a " +
                 "LEFT JOIN lu_razas b on b.id_tipo_de_mascota=a.id " +
@@ -105,8 +106,8 @@ namespace WeApi.Controllers
             return true; 
         }
 
-        // PUT api/tiposdemascota/5
-        public IHttpActionResult Put(int id, [FromBody]Object value)
+        // PUT api/tiposdemascota/5        
+        public IHttpActionResult Post(int id, [FromBody]Object value)
         {
             JObject json = JObject.Parse(value.ToString());
 

@@ -50,17 +50,26 @@ namespace WeApi.Controllers
 
             //Actualizamos los datos con un update query. 
             string insert_query = string.Format("INSERT INTO `lu_razas` " +
-            "(`nombre`, `id_tipo_de_mascota`, `fecha_de_registro`, `fecha_de_modificacion`) " +
+            "(`nombre`, `id_tipo_de_mascota`, `talla`) " +
             "VALUES " +
-            "('{0}', '{1}', {2}, {3}); "
+            "('{0}', '{1}', '{2}'); "
             , json["nombre"]
             , json["id_tipo_de_mascota"]
-            , "now()"
-            , "now()");
+            , json["talla"]);
             //, id);
 
             //En caso de error, devolverá incorrecto
             tabla_resultado.Rows[0]["id"] = Database.runInsert(insert_query).ToString();
+
+            //Relacionamos la nueva raza con los usarios para el manejo de inventario de mascotas. 
+            string insert_inventario = string.Format("INSERT IGNORE INTO `lu_existencias_de_mascotas` (`id_usuario`, `id_raza`)   " +
+                                                        "SELECT a.id as id_usuario, b.id as id_raza  " +
+                                                        "from  " +
+                                                        "lu_usuarios a  " +
+                                                        "LEFT JOIN lu_razas b on 1 " +
+                                                        "where b.id='{0}';  ",
+                                                        tabla_resultado.Rows[0]["id"]);
+            Database.runQuery(insert_inventario); 
             if (tabla_resultado.Rows[0]["id"].ToString() == "-1")
                 return Json("incorrecto"); 
 
@@ -80,7 +89,7 @@ namespace WeApi.Controllers
         }
 
         // PUT api/razas/5
-        public IHttpActionResult Put(int id, [FromBody]Object value)
+        public IHttpActionResult Post(int id, [FromBody]Object value)
         {
             JObject json = JObject.Parse(value.ToString());
 
@@ -90,10 +99,11 @@ namespace WeApi.Controllers
             //Actualizamos los datos con un update query. 
             string update_query = string.Format("UPDATE `lu_razas` " +
             "set " +
-            "nombre='{0}' " +            
-            ",fecha_de_modificacion=now() " +
-            "where id='{1}'"
+            "nombre='{0}' " +
+            ", talla='{1}' " +
+            "where id='{2}'"
             , json["nombre"]
+            , json["talla"]
             , id);
 
             //Contestamos con el id del nuevo registro.

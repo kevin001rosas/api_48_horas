@@ -5548,7 +5548,7 @@ function cloneCopyEvent( src, dest ) {
 }
 
 // Fix IE bugs, see support tests
-function fixInput( src, dest ) {
+function fixInPost( src, dest ) {
 	var nodeName = dest.nodeName.toLowerCase();
 
 	// Fails to persist the checked state of a cloned checkbox or radio button.
@@ -5691,7 +5691,7 @@ jQuery.extend( {
 			srcElements = getAll( elem );
 
 			for ( i = 0, l = srcElements.length; i < l; i++ ) {
-				fixInput( srcElements[ i ], destElements[ i ] );
+				fixInPost( srcElements[ i ], destElements[ i ] );
 			}
 		}
 

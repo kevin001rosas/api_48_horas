@@ -14,10 +14,9 @@ namespace WeApi.Controllers
         // GET api/ciudades
         public IHttpActionResult Get()
         {
-            if (!utilidades.validar_token(Request))
-                return Json("incorrecto");
-
-            string query = "SELECT id, nombre from cf_ciudades where estado=1 order by nombre;";
+            /*if (!utilidades.validar_token(Request))
+                return Json("incorrecto");*/
+            string query = "SELECT id, nombre, id_distribuidor from cf_ciudades where estado=1 order by nombre;";
             DataTable tabla = Database.runSelectQuery(query);
             return Json(utilidades.convertDataTableToJson(tabla));
         }

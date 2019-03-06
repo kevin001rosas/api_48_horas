@@ -12,8 +12,9 @@ namespace WeApi.Controllers
 {
     class Database
     {
-        public static string tipoUsuario = "";        
-        //public static MySqlConnection _conn = new MySqlConnection("server=xiksolutions.com;database=db_inventarios_almacen;uid=kevin;pwd=conker1385;CHARSET=utf8;convert zero datetime=True");
+        public static string tipoUsuario = "";
+        //public static MySqlConnection _conn = new MySqlConnection("server=xiksolutions.com;database=db_royal_canin;uid=kevin;pwd=conker1385;CHARSET=utf8;convert zero datetime=True");
+        //public static MySqlConnection _conn = new MySqlConnection("server=xik.mx;port=3306;database=db_royal_canin;uid=kevin;pwd=conker1385;CHARSET=utf8;convert zero datetime=True");
         public static MySqlConnection _conn = new MySqlConnection("server=localhost;database=db_royal_canin;uid=root;pwd=conker;CHARSET=utf8;convert zero datetime=True");
         public static DataTable tablaEquipos;
         public static string connectionStringTablaInsercion;
@@ -97,6 +98,49 @@ namespace WeApi.Controllers
                 Database.ManageException(e);
                 Console.WriteLine(sql);
                 return null;
+
+            }
+        }
+
+
+        public static string runSelectQueryEspecial(string query)
+        {
+            try
+            {
+            query = query.Replace("\n", "");
+
+
+            Console.WriteLine(query);
+            DataTable tablaSelect = new DataTable();
+            string sql = query;
+
+            
+
+                var comm = new MySqlCommand(sql, Database._conn);
+                Database._conn.Open();
+                Database.adapt = new MySqlDataAdapter(comm);
+                MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(Database.adapt);
+                Database.tablaBusqueda = new DataTable();
+                Database.adapt.Fill(tablaSelect);
+                Database._conn.Close();
+
+                if (tablaSelect == null)
+                {
+
+                    return null;
+                }
+                else if (tablaSelect.Rows.Count < 1)
+                {
+                    return null;
+                }
+
+                return "Correcto";
+
+            }
+            catch (Exception e)
+            {
+                Database.ManageException(e);                
+                return e.ToString();
 
             }
         }
